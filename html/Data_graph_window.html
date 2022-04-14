@@ -1,11 +1,52 @@
 <html>
   <head>
+     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js" type="text/javascript"></script>
+     <script>
+     anychart.onDocumentReady(function () {
 
+       // create data
+       let ArrayLenght = 10;
+       var TryData = new Array(ArrayLenght);
+       for(var i =0; i<ArrayLenght; i++)
+                TryData[i]= new Array(1);
+
+       TryData[0,0] = ["Январь", 100];
+       TryData[1,1] = ["Февраль", 300];
+       TryData[2,2] = ["Март", 150]
+       TryData[3,3] = ["Апрель", 500]
+       TryData[4,4] = ["Май", 200]
+       TryData[5,5] = ["Июнь", 800]
+       TryData[6,6] = ["Июль", 500]
+       TryData[7,7] = ["Август", 1000]
+       TryData[8,8] = ["Сентябрь", 500]
+       TryData[9,9] = ["Октябрь", 1000]
+       /*var data = [
+         ["January", 10000],
+         ["February", 12000],
+         ["March", 18000],
+         ["April", 11000],
+         ["May", 9000],
+         []
+       ];*/
+
+       // create a line chart
+       chart = anychart.line();
+
+       // set the data
+       chart.data(TryData);
+
+       // enable the crosshair
+       chart.crosshair(true);
+
+       // set the container id
+       chart.container("container");
+
+       // initiate drawing the chart
+       chart.draw();
+   });
+  </script>
   </head>
   <body>
-    <script>
-
-      
-    </script>
+    <div id="container" style="width: max-width; height: max-height;"></div>
   </body>
 </html>
