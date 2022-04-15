@@ -1,0 +1,13 @@
+.Enter_field{
+  border: 2px solid black;
+}
+
+div{
+  font-style: italic;
+  color: red;
+}
+
+p{
+  color: red;
+  font-size: 100px;
+}
