@@ -1,13 +1,22 @@
-.Enter_field{
-  border: 2px solid black;
+.button {
+  background-color: #3700ff;
+  border: none;
+  color: white;
+  padding: 20px 34px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 100px 500px;
+  cursor: pointer;
 }
 
-div{
-  font-style: italic;
-  color: red;
+#OpenGraphsBTM{
+  background-color: #00ff6a;
+  margin: 50px 100px;
 }
 
-p{
-  color: red;
-  font-size: 100px;
+#OpenModelsPageBTM{
+  background-color: #2e0202;
+  margin: 50px 100px;
 }
