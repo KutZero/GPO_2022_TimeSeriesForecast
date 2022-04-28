@@ -8,13 +8,9 @@
 
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 <<<<<<< HEAD
-<<<<<<< HEAD
 
 		<script type="text/javascript" src="../java_script/java_script_excel_to_array.js"> </script>
 
-=======
-		<script type="text/javascript" src="/java_script/java_script_for_bd.js"></script>
->>>>>>> 0af29e55c24cd0793abd99fc72935c9a0efce2e8
 =======
 >>>>>>> 7e82967e16541479efbfe305dfda9d5ff5582bcb
 </head>
@@ -79,18 +75,10 @@ excel_file.addEventListener('change', (event) => {
 						var PosleData = new Array(sheet_data.length);
 						var TempData = new Array(sheet_data.length);
 						var RasxData = new Array(sheet_data.length);
-<<<<<<< HEAD
-						for(var row = 3; row < sheet_data.length; row++)
-						{
-								//NewData[row-3] = new Array(1);
-								for(var cell = 0; cell < sheet_data[row].length; cell++)
-								{
-=======
             for(var row = 3; row < sheet_data.length; row++)
             {
                 for(var cell = 0; cell < sheet_data[row].length; cell++)
                 {
->>>>>>> 7e82967e16541479efbfe305dfda9d5ff5582bcb
 										if(sheet_data[row][cell] != '#N/A' || sheet_data[row][cell] != '0')
 										{
 												switch (cell)
