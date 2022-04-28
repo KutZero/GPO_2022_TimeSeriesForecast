@@ -1,12 +1,11 @@
 <html>
   <head>
      <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js" type="text/javascript"></script>
-     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
      <script>
      anychart.onDocumentReady(function () {
 
        // create data
-        var Data = JSON.parse(localStorage.getItem('Do'))
+        var Data = JSON.parse(localStorage.getItem('Do'));
         var TryData = new Array();
 
        for(var i =0; i<Data.length; i++)
@@ -14,7 +13,7 @@
             TryData[i]= new Array(1);
             TryData[i] = [i, Data[i]];
            }
-           
+
        // create a line chart
        chart = anychart.line();
 
