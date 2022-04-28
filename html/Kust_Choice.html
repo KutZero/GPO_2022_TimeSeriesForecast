@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-		<script type="text/javascript" src="/java_script/java_script_for_bd.js"></script>
 </head>
 <body>
 		<a style="font-size: 120%; font-family: Verdana;"href="Main_window.html">Вернуться на главную страницу</a>
@@ -36,6 +35,7 @@
 </html>
 
 <script>
+
 const excel_file = document.getElementById('excel_file');
 
 excel_file.addEventListener('change', (event) => {
@@ -49,11 +49,6 @@ excel_file.addEventListener('change', (event) => {
         return false;
     }
 		var texts = document.querySelectorAll('p');
-		/*for(var i = 0; i<texts.length; i++)
-				{
-						texts[i].
-				}*/
-		console.log('PIZDA');
 		document.getElementById('first_column').style.display = 'none';
 		document.getElementById('second_column').style.display = 'none';
 		document.getElementById('third_column').style.display = 'none';
@@ -75,7 +70,6 @@ excel_file.addEventListener('change', (event) => {
 						var RasxData = new Array(sheet_data.length);
             for(var row = 3; row < sheet_data.length; row++)
             {
-								//NewData[row-3] = new Array(1);
                 for(var cell = 0; cell < sheet_data[row].length; cell++)
                 {
 										if(sheet_data[row][cell] != '#N/A' || sheet_data[row][cell] != '0')
@@ -136,15 +130,11 @@ excel_file.addEventListener('change', (event) => {
 											break;
 										}
 								 }
-								 window.open('Data_graph_window.html ','','Toolbar=1,Location=0,Directories=0,Status=0,Menubar=0,Scrollbars=0,Resizable=Yes,Width=1200,Height=600, Left = 350, Top = 200, position: relative;');
+								 var url = 'Data_graph_window.html';
+								 var wo =  window.open(url,'_blank','Toolbar=1,Location=0,Directories=0,Status=0,Menubar=0,Scrollbars=0,Resizable=Yes,Width=1200,Height=600, Left = 350, Top = 200, position: relative;');
 
 					})
 				}
-
-				/*for(var i = 0; i<texts.length; i++)
-				{
-						texts[i].style.display = '';
-				}*/
 				document.getElementById('first_column').style.display = '';
 				document.getElementById('second_column').style.display = '';
 				document.getElementById('third_column').style.display = '';
