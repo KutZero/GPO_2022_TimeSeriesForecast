@@ -24,21 +24,20 @@
   background-color: #3700ff;
   border: none;
   color: white;
-  padding: 20px 34px;
+  padding: 15px 15px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 20px;
-  margin: 100px 500px;
+  font-family: Verdana;
+  margin: 20px;
   cursor: pointer;
 }*/
 
 #OpenGraphsBTM{
   background-color: #00ff6a;
-  margin: 50px 100px;
 }
 
 #OpenModelsPageBTM{
   background-color: #2e0202;
-  margin: 50px 100px;
 }
