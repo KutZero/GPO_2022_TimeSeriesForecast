@@ -2,17 +2,30 @@
 <html>
 <head>
 	<meta charset="utf-8" />
+<<<<<<< HEAD
 	<title>Визуализация данных в виде графиков</title>
+	<link rel="stylesheet" href="../css/style.css" type="text/css"/>
+=======
+>>>>>>> 6569fe82c453579ced52bb09a8841fb479038b55
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+	<title>Визуализация данных в виде графиков</title>
 
-		<script type="text/javascript" src="../java_script/java_script_excel_to_array.js"> </script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" href="../css/style.css" type="text/css"/>
+
+  <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
 </head>
 <body>
-		<a style="font-size: 120%; font-family: Verdana;"href="Main_window.html">Вернуться на главную страницу</a>
+<<<<<<< HEAD
+		<form action="Data_about_model_window.html">
+           <button class="button">Вернуться на страницу с моделями</button>
+       </form>
+		<!-- <a style="font-size: 120%; font-family: Verdana;"href="Main_window.html">Вернуться на главную страницу</a> -->
+=======
+		<a class="button" href="Main_window.html">Вернуться на главную страницу</a>
+>>>>>>> 6569fe82c453579ced52bb09a8841fb479038b55
     <div class="container">
     	<h2 class="text-center mt-4 mb-4">Визуальное представление данных скважин</h2>
     	<div class="card">
@@ -22,127 +35,18 @@
 					Поддерживаемые типы файлов: &quot;.xlsx&quot; и &quot;.xls&quot;</b2>
 				</div>
     		<div class="card-body">
-
-                <input type="file" id="excel_file"/>
-								<p><a  id = "first_column" style="display:none;" href="#nul"> Открыть график "Давление до УР" в новом окне</a> </p>
-								<p><a  id = "second_column" style="display:none;" href="#nul"> Открыть график "Давление после УР" в новом окне</a> </p>
-								<p><a  id = "third_column" style="display:none;" href="#nul"> Открыть график "Температура в ТП до УР" в новом окне</a> </p>
-								<p><a  id = "fourth_column" style="display:none;" href="#nul"> Открыть график "Расход в ТП до УР" в новом окне</a> </p>
+          <input type="file" id="excel_file"/>
+						<p><a  id = "first_column" style="display:none;" href="#nul"> Открыть график "Давление до УР" в новом окне</a> </p>
+						<p><a  id = "second_column" style="display:none;" href="#nul"> Открыть график "Давление после УР" в новом окне</a> </p>
+						<p><a  id = "third_column" style="display:none;" href="#nul"> Открыть график "Температура в ТП до УР" в новом окне</a> </p>
+						<p><a  id = "fourth_column" style="display:none;" href="#nul"> Открыть график "Расход в ТП до УР" в новом окне</a> </p>
     		</div>
     	</div>
     	</div>
         <div id="excel_data" class="mt-5"></div>
     </div>
 
+		<script type="text/javascript" src="../java_script/java_script_excel_to_array.js"> </script>
+
 </body>
 </html>
-
-<script>
-
-const excel_file = document.getElementById('excel_file');
-
-excel_file.addEventListener('change', (event) => {
-
-    if(!['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'].includes(event.target.files[0].type))
-    {
-        document.getElementById('excel_data').innerHTML = '<div class="alert alert-danger">Only .xlsx or .xls file format are allowed</div>';
-
-        excel_file.value = '';
-
-        return false;
-    }
-		var texts = document.querySelectorAll('p');
-		document.getElementById('first_column').style.display = 'none';
-		document.getElementById('second_column').style.display = 'none';
-		document.getElementById('third_column').style.display = 'none';
-		document.getElementById('fourth_column').style.display = 'none';
-    var reader = new FileReader();
-
-    reader.readAsArrayBuffer(event.target.files[0]);
-    reader.onload = function(event){
-        var data = new Uint8Array(reader.result);
-        var work_book = XLSX.read(data, {type:'array'});
-        var sheet_name = work_book.SheetNames;
-        var sheet_data = XLSX.utils.sheet_to_json(work_book.Sheets[sheet_name[0]], {header:1});
-
-        if(sheet_data.length > 0)
-        {
-						var DoData = new Array(sheet_data.length);
-						var PosleData = new Array(sheet_data.length);
-						var TempData = new Array(sheet_data.length);
-						var RasxData = new Array(sheet_data.length);
-            for(var row = 3; row < sheet_data.length; row++)
-            {
-                for(var cell = 0; cell < sheet_data[row].length; cell++)
-                {
-										if(sheet_data[row][cell] != '#N/A' || sheet_data[row][cell] != '0')
-										{
-												switch (cell)
-												{
-													case 1:
-													{
-														DoData[row-3] = sheet_data[row-1][cell];
-														break;
-													}
-													case 2:
-													{
-														PosleData[row-3] = sheet_data[row-1][cell];
-														break;
-													}
-													case 3:
-													{
-														TempData[row-3] = sheet_data[row-1][cell];
-														break;
-													}
-													case 4:
-													{
-														RasxData[row-3] = sheet_data[row-1][cell];
-														break;
-													}
-												}
-									  }
-                }
-            }
-        }
-
-				for(var i =0; i<texts.length; i++)
-				{
-					texts[i].addEventListener('click',
-					function(e)
-					{
-						 switch (e.target.getAttribute('id'))
-								 {
-									 	case 'first_column':
-										{
-											localStorage.setItem("Do", JSON.stringify(DoData));
-											break;
-										}
-										case 'second_column':
-										{
-											localStorage.setItem("Do", JSON.stringify(PosleData));
-											break;
-										}
-										case 'third_column':
-										{
-											localStorage.setItem("Do", JSON.stringify(TempData));
-											break;
-										}
-										case 'fourth_column':
-										{
-											localStorage.setItem("Do", JSON.stringify(RasxData));
-											break;
-										}
-								 }
-								 var url = 'Data_graph_window.html';
-								 var wo =  window.open(url,'_blank','Toolbar=1,Location=0,Directories=0,Status=0,Menubar=0,Scrollbars=0,Resizable=Yes,Width=1200,Height=600, Left = 350, Top = 200, position: relative;');
-
-					})
-				}
-				document.getElementById('first_column').style.display = '';
-				document.getElementById('second_column').style.display = '';
-				document.getElementById('third_column').style.display = '';
-				document.getElementById('fourth_column').style.display = '';
-    }
-
-});
-</script>

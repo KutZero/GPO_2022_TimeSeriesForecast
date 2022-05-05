@@ -1,4 +1,26 @@
 .button {
+    background: #F6F8FA;
+    color: #0969DA;
+    font-family: Verdana;
+    font-size: 120%;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 20px 34px;
+    margin: 50px 100px;
+}
+
+.button:hover {
+    background: #0969DA;
+    color: #F6F8FA;
+    font-family: Verdana;
+    font-size: 120%;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 20px 34px;
+    margin: 50px 100px;
+}
+
+/*.button_old {
   background-color: #3700ff;
   border: none;
   color: white;
@@ -9,7 +31,7 @@
   font-size: 20px;
   margin: 100px 500px;
   cursor: pointer;
-}
+}*/
 
 #OpenGraphsBTM{
   background-color: #00ff6a;

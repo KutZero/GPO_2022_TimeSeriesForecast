@@ -4,9 +4,7 @@
   <head>
     <meta charset="utf-8" />
     <title> Enter window </title>
-
-    <link rel="stylesheet" href="/css/style.css" />
-
+    <link rel="stylesheet" href="../css/style.css" type="text/css"/>
   </head>
   <body>
 
@@ -14,19 +12,32 @@
       <h1 color="red"> Выберите опцию </h1>
 
       <div class="Hor_center">
-        <button href = "/Model_prediction_window.html" id = "to_predict_btm" > Предсказания модели </button>
+        <form action="Model_prediction_window.html">
+          <button style="padding: 3px; margin: 5px;" class="button" id = "to_predict_btm">Предсказания модели</button>
+        </form>
+        <!-- <button href = "/Model_prediction_window.html" id = "to_predict_btm" >Предсказания модели</button> -->
       </div>
 
       <div class="Hor_center">
-        <button id = "to_model_descript_btm" > Данные о модели </button>
+        <form action="">
+          <button style="padding: 3px; margin: 5px;" class="button" id = "to_predict_btm">Данные о модели</button>
+        </form>
+        <!-- <button id = "to_model_descript_btm" >Данные о модели</button> -->
       </div>
 
       <div class="Hor_center">
-        <button id = "to_orig_data_btm" > Описание исходных данных </button>
+        <form action="">
+          <button style="padding: 3px; margin: 5px;" class="button" id = "to_predict_btm">Описание исходных данных</button>
+        </form>
+        <!-- <button id = "to_orig_data_btm" >Описание исходных данных</button> -->
       </div>
-
 
       <p color="red"> Вас приветствует сайт, визуализирующий результаты работы модели прогнозирования событий на предприятии</p>
+
+      <form action="Main_window.html">
+        <button class="button">Главная страница</button>
+      </form>
+
     </div>
 
   </body>
