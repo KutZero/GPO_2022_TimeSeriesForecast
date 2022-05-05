@@ -2,18 +2,22 @@
 <html>
 <head>
 	<meta charset="utf-8" />
+	<title>Визуализация данных в виде графиков</title>
+	<link rel="stylesheet" href="../css/style.css" type="text/css"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<title>Визуализация данных в виде графиков</title>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="../css/style.css" type="text/css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
-
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 </head>
 <body>
-		<a class="button" href="Main_window.html">Вернуться на главную страницу</a>
+	<div>
+		<form action="Data_about_model_window.html">
+			<button class="button">Вернуться на страницу с моделями</button>
+		</form>
+	</div>
+		
     <div class="container">
     	<h2 class="text-center mt-4 mb-4">Визуальное представление данных скважин</h2>
     	<div class="card">
@@ -21,20 +25,18 @@
 					<b1 style="font-size: 200%; font-family: Verdana;">Выберите необходимую скважину.<br></b1>
 					<b2>Внимание! Вы можете открыть несколько окон с графиками. Если при выборе скважины ссылки на графики не появились, то необходимо подождать. При слишком долгом ожидании стоит обратиться к разработчикам.<br>
 					Поддерживаемые типы файлов: &quot;.xlsx&quot; и &quot;.xls&quot;</b2>
-				</div>
+			</div>
     		<div class="card-body">
-          <input type="file" id="excel_file"/>
-						<p><a  id = "first_column" style="display:none;" href="#nul"> Открыть график "Давление до УР" в новом окне</a> </p>
-						<p><a  id = "second_column" style="display:none;" href="#nul"> Открыть график "Давление после УР" в новом окне</a> </p>
-						<p><a  id = "third_column" style="display:none;" href="#nul"> Открыть график "Температура в ТП до УР" в новом окне</a> </p>
-						<p><a  id = "fourth_column" style="display:none;" href="#nul"> Открыть график "Расход в ТП до УР" в новом окне</a> </p>
+          		<input type="file" id="excel_file"/>
+					<p><a  id = "first_column" style="display:none;" href="#nul"> Открыть график "Давление до УР" в новом окне</a> </p>
+					<p><a  id = "second_column" style="display:none;" href="#nul"> Открыть график "Давление после УР" в новом окне</a> </p>
+					<p><a  id = "third_column" style="display:none;" href="#nul"> Открыть график "Температура в ТП до УР" в новом окне</a> </p>
+					<p><a  id = "fourth_column" style="display:none;" href="#nul"> Открыть график "Расход в ТП до УР" в новом окне</a> </p>
     		</div>
     	</div>
-    	</div>
-        <div id="excel_data" class="mt-5"></div>
     </div>
 
-		<script type="text/javascript" src="../java_script/java_script_excel_to_array.js"> </script>
-
+    <div id="excel_data" class="mt-5"></div>
+	<script type="text/javascript" src="../java_script/java_script_excel_to_array.js"> </script>
 </body>
 </html>
