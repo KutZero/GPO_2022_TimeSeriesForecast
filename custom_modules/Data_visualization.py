@@ -2,17 +2,26 @@
 
 Функции:
 
-draw_4_graphs([df]) - Нарисовать 4 графика данных по времени;
+Нарисовать 4 графика данных по времени:
+draw_4_graphs([df])
 
-draw_4_box_plot_graphs([df]) - Нарисовать 4 box-plot графика;
+Нарисовать 4 box-plot графика:
+draw_4_box_plot_graphs([df])
 
-draw_4_autocorrelation_graphs([df]) - Нарисовать 4 графика автокорреляции (коррелограммы);
+Нарисовать 4 графика автокорреляции (коррелограммы):
+draw_4_autocorrelation_graphs([df])
 
-draw_4_frewuencis_graphs([df]) - Нарисовать 4 графика частоты встречающихся значений;
+Нарисовать 4 графика частоты встречающихся значений:
+draw_4_frewuencis_graphs([df])
 
-draw_6_relations_graphs([df]) - Нарисовать 6 графиков зависимости данных друг от друга (без повторений);
+Нарисовать 4 графика для двух датафреймов с наложением (по графику на столбец):
+draw_4_graphs_with_overlay_for_2_df([df1], [df2])
 
-describe_data([df]) - Вывести общее описание данных.
+Нарисовать 6 графиков зависимости данных друг от друга (без повторений):
+draw_6_relations_graphs([df])
+
+Вывести общее описание данных:
+describe_data([df])
 
 Более подробнаую информацию можно получить так:
 
@@ -27,29 +36,8 @@ import matplotlib.pyplot as plt
 from IPython.display import display
 from pandas.plotting import autocorrelation_plot
 
-def module_description():
-    print('Функции:\n')
-
-    print('Нарисовать 4 графика данных по времени - draw_4_graphs(df)')
-    print('[df] - датасет для обработки\n')
-
-    print('Нарисовать 4 box-plot графика - draw_4_box_plot_graphs(df)')
-    print('[df] - датасет для обработки\n')
-
-    print('Нарисовать 4 графика автокорреляции (коррелограммы) - draw_4_autocorrelation_graphs(df)')
-    print('[df] - датасет для обработки\n')
-
-    print('Нарисовать 4 графика частоты встречающихся значений - draw_4_frewuencis_graphs(df)')
-    print('[df] - датасет для обработки\n')
-
-    print('Нарисовать 6 графиков зависимости данных друг от друга (без повторений) - draw_6_relations_graphs(df)')
-    print('[df] - датасет для обработки\n')
-
-    print('Вывести общее описание данных - describe_data(df)')
-    print('[df] - датасет для обработки\n')
-
 # вывести 4 графика зависимости значений столбца относительно времени (по графику на столбец)
-def draw_4_graphs(df):
+def draw_4_graphs(df: pd.DataFrame):
     """Рисует 4 графика для каждого значащего столбца датафрейма.
 
     :param df: arg1
@@ -70,7 +58,7 @@ def draw_4_graphs(df):
     plt.show()
 
 # вывести 4 графика box-plot (по графику на столбец)
-def draw_4_box_plot_graphs(df):
+def draw_4_box_plot_graphs(df: pd.DataFrame):
     """Рисует 4 box-plot графика для каждого значащего столбца датафрейма.
 
     :param df: arg1
@@ -89,13 +77,15 @@ def draw_4_box_plot_graphs(df):
     plt.show()
 
 # вывести 4 графика автокорреляции (по графику на столбец)
-def draw_4_autocorrelation_graphs(df):
+def draw_4_autocorrelation_graphs(df: pd.DataFrame):
     """Рисует 4 графика автокорреляции (коррелограммы) для каждого значащего столбца датафрейма.
 
     :param df: arg1
     :type df: DataFrame
     """
-    plt.figure(figsize=(22, 20))
+    print ("А я не работаю")
+
+    '''plt.figure(figsize=(22, 20))
     i = 1
     columns = list(df.columns[1:])
 
@@ -107,10 +97,10 @@ def draw_4_autocorrelation_graphs(df):
         plt.title(col)
         i+=1
 
-    plt.show()
+    plt.show()'''
 
 # нарисовать по 1 графику для каждого столбца, кроме даты, с частотой появления различных значений
-def draw_4_frewuencis_graphs(df):
+def draw_4_frewuencis_graphs(df: pd.DataFrame):
     """Рисует 4 графика частоты встречающихся значений для каждого значащего столбца датафрейма.
 
     :param df: arg1
@@ -129,7 +119,7 @@ def draw_4_frewuencis_graphs(df):
     plt.show()
 
 # нарисовать 6 графиков зависимости каждого столбца от каждого (без повторений)
-def draw_6_relations_graphs(df):
+def draw_6_relations_graphs(df: pd.DataFrame):
     """Рисует 6 графиков зависимости каждого значащего столбца от каждого для датафрейма.
 
     :param df: arg1
@@ -155,8 +145,39 @@ def draw_6_relations_graphs(df):
 
     plt.show()
 
+# вывсести 4 графика для двух датафреймов с наложением (по графику на столбец)
+def draw_4_graphs_with_overlay_for_2_df(df1: pd.DataFrame, df2: pd.DataFrame):
+    """
+    Рисует 4 графика для двух датафреймов с наложением (по графику на столбец).
+    Первый параметр - начальные данные, второй - обработанные данные.
+
+    :param df1: arg1
+    :type df1: DataFrame
+    :param df2: arg2
+    :type df2: DataFrame
+    """
+    plt.figure(figsize=(22, 20))
+    columns = list(df1.columns[1:])
+
+    i = 1
+    # Проверка, имеют ли датафреймы одинаковые столбцы
+    if (columns != list(df2.columns[1:])):
+        return 0
+
+    for col in columns:
+        plt.subplot(4, 1, i)
+        plt.plot(df1['Time Moment'] , df1[col], '-', label = "Начальные данные")
+        plt.plot(df2['Time Moment'] , df2[col], '-', label = "Обработанные данные")
+        plt.xlabel('Time Moment')
+        plt.ylabel(col)
+        plt.title(col)
+        plt.legend()
+        i+=1
+
+    plt.show()
+
 # описаниие данных
-def describe_data(df):
+def describe_data(df: pd.DataFrame):
     """Выводит общее описание данных.
 
     А именно:

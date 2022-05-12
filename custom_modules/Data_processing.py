@@ -2,17 +2,23 @@
 
 Функции:
 
-get_df([path]) - Чтение датасета из Excel;
+Чтение датасета из Excel:
+get_df([path])
 
-delete_outliers([df], [soft_mode = True]) - Удалить выбросы с помощью IQR;
+Удалить выбросы с помощью IQR:
+delete_outliers([df], [soft_mode = True])
 
-standartize_data([df]) - Стандартизовать данные;
+Стандартизовать данные:
+standartize_data([df])
 
-normalize_data([df]) - Нормализовать данные;
+Нормализовать данные:
+normalize_data([df])
 
-delete_NANs([df]) - Удалить строки с пустыми значениями;
+Удалить строки с пустыми значениями:
+delete_NANs([df])
 
-delete_zeros([df]) - Удалить строки с нулевыми значениями.
+Удалить строки с нулевыми значениями:
+delete_zeros([df])
 
 Более подробнаую информацию можно получить так:
 
@@ -25,7 +31,7 @@ import pandas as pd
 import numpy as np
 
 # чтение данных из файла Excel и возврат датафрейма
-def get_df(path):
+def get_df(path: str):
     """Возвращает датафрейм, считанный из Excel файла.
 
     :param path: arg1
@@ -46,7 +52,7 @@ def get_df(path):
 
 # удалить выбросы из данных методом IQR
 # soft_mode - рамки удаления выбросов, если True - удаляет только самые вопиющие выбросы
-def delete_outliers(df, soft_mode = True):
+def delete_outliers(df: pd.DataFrame, soft_mode: bool = True):
     """Возвращает датафрейм, очищенный от выбросов IQR методом.
 
     :param df: arg1
@@ -80,7 +86,7 @@ def delete_outliers(df, soft_mode = True):
     return df
 
 # стандартизация данных (от -1 до 1)
-def standartize_data(df):
+def standartize_data(df: pd.DataFrame):
     """Возвращает стандартизированный датафрейм.
 
     :param df: arg1
@@ -97,7 +103,7 @@ def standartize_data(df):
     return df
 
 # нормализация данных (от 0 до 1)
-def normalize_data(df):
+def normalize_data(df: pd.DataFrame):
     """Возвращает нормализованный датафрейм.
 
     :param df: arg1
@@ -114,7 +120,7 @@ def normalize_data(df):
     return df
 
 # удалить строки с пустыми значениями
-def delete_NANs(df):
+def delete_NANs(df: pd.DataFrame):
     """Возвращает датафрейм, очищенный от NAN значений.
 
     :param df: arg1
@@ -131,7 +137,7 @@ def delete_NANs(df):
     return df
 
 # удалить строки с нулевыми значениями
-def delete_zeros(df):
+def delete_zeros(df: pd.DataFrame):
     """Возвращает датафрейм, очищенный от нулевых значений.
 
     :param df: arg1
