@@ -2,8 +2,11 @@
 
 Функции:
 
-Чтение датасета из Excel:
+Чтение датасета из файла Excel:
 get_df([path])
+
+Записать датасет в файл Excel:
+set_df([df], [path_to_data]):
 
 Удалить выбросы с помощью IQR:
 delete_outliers([df], [soft_mode = True])
@@ -49,6 +52,26 @@ def get_df(path: str):
         df[col] = df[col].astype(float)
 
     return df
+
+# записать датафрейм в файл Excel
+def set_df(df: pd.DataFrame, path: str):
+    """Записывает датафрейм в файл
+
+    :param df: arg1
+    :type path: DataFrame
+
+    :param path: arg2
+    :type path: string
+    """
+    columns = list(df.columns[:])
+    line = {}
+
+    for col in columns:
+        line[col] = [None]
+
+    line = pd.DataFrame(data = line)
+    df = pd.concat([line, df], axis = 0)
+    df.to_excel(path, index=False)
 
 # удалить выбросы из данных методом IQR
 # soft_mode - рамки удаления выбросов, если True - удаляет только самые вопиющие выбросы
