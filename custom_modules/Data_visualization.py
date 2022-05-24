@@ -83,9 +83,7 @@ def draw_4_autocorrelation_graphs(df: pd.DataFrame):
     :param df: arg1
     :type df: DataFrame
     """
-    print ("А я не работаю")
-
-    '''plt.figure(figsize=(22, 20))
+    plt.figure(figsize=(22, 20))
     i = 1
     columns = list(df.columns[1:])
 
@@ -97,7 +95,7 @@ def draw_4_autocorrelation_graphs(df: pd.DataFrame):
         plt.title(col)
         i+=1
 
-    plt.show()'''
+    plt.show()
 
 # нарисовать по 1 графику для каждого столбца, кроме даты, с частотой появления различных значений
 def draw_4_frewuencis_graphs(df: pd.DataFrame):
