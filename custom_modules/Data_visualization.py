@@ -46,10 +46,12 @@ def draw_4_graphs(df: pd.DataFrame):
     plt.figure(figsize=(22, 20))
     i = 1
     columns = list(df.columns[1:])
+    colors = ['b', 'm', 'g', 'r']
 
     for col in columns:
         plt.subplot(4, 1, i)
-        plt.plot(df['Time Moment'] , df[col], '-')
+        plt.plot(df['Time Moment'] , df[col], '-', color = colors[i-1])
+        plt.grid()
         plt.xlabel('Time Moment')
         plt.ylabel(col)
         plt.title(col)
@@ -105,12 +107,14 @@ def draw_4_frewuencis_graphs(df: pd.DataFrame):
     :type df: DataFrame
     """
     columns = list(df.columns[1:])
+    colors = ['b', 'm', 'g', 'r']
+
     i = 1
     plt.figure(figsize=(16, 10))
 
     for col in columns:
         plt.subplot(2, 2, i)
-        df[col].plot(kind='hist', density=1, bins=20, stacked=False, alpha=.5, color='grey')
+        df[col].plot(kind='hist', density=1, bins=20, stacked=False, alpha=.5, color=colors[i-1])
         plt.title(col)
         i+=1
 
@@ -124,6 +128,7 @@ def draw_6_relations_graphs(df: pd.DataFrame):
     :type df: DataFrame
     """
     columns = list(df.columns[1:])
+    colors = ['b', 'g', 'r', 'c', 'm', 'y']
 
     plt.figure(figsize=(16, 16))
 
@@ -134,7 +139,7 @@ def draw_6_relations_graphs(df: pd.DataFrame):
     for first_col in columns[:-1]:
         for col in columns[j:]:
             plt.subplot(3, 2, i)
-            plt.plot(df[first_col] , df[col], 'bx')
+            plt.plot(df[first_col] , df[col], 'x', color = colors[i-1])
             plt.title(first_col[10:] +  " + " +  col[10:])
             plt.xlabel(first_col)
             plt.ylabel(col)
