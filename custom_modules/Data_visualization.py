@@ -43,7 +43,7 @@ def draw_4_graphs(df: pd.DataFrame):
     :param df: arg1
     :type df: DataFrame
     """
-    plt.figure(figsize=(22, 20))
+    plt.figure(figsize=(16, 20)) #plt.figure(figsize=(22, 20))
     i = 1
     columns = list(df.columns[1:])
     colors = ['b', 'm', 'g', 'r']
@@ -66,7 +66,7 @@ def draw_4_box_plot_graphs(df: pd.DataFrame):
     :param df: arg1
     :type df: DataFrame
     """
-    plt.figure(figsize=(22, 20))
+    plt.figure(figsize=(16, 20)) #plt.figure(figsize=(22, 20))
     i = 1
     columns = list(df.columns[1:])
 
@@ -85,7 +85,7 @@ def draw_4_autocorrelation_graphs(df: pd.DataFrame):
     :param df: arg1
     :type df: DataFrame
     """
-    plt.figure(figsize=(22, 20))
+    plt.figure(figsize=(16, 20)) #plt.figure(figsize=(22, 20))
     i = 1
     columns = list(df.columns[1:])
 
@@ -139,6 +139,7 @@ def draw_6_relations_graphs(df: pd.DataFrame):
     for first_col in columns[:-1]:
         for col in columns[j:]:
             plt.subplot(3, 2, i)
+            plt.grid()
             plt.plot(df[first_col] , df[col], 'x', color = colors[i-1])
             plt.title(first_col[10:] +  " + " +  col[10:])
             plt.xlabel(first_col)
@@ -159,7 +160,7 @@ def draw_4_graphs_with_overlay_for_2_df(df1: pd.DataFrame, df2: pd.DataFrame):
     :param df2: arg2
     :type df2: DataFrame
     """
-    plt.figure(figsize=(22, 20))
+    plt.figure(figsize=(16, 20)) #plt.figure(figsize=(22, 20))
     columns = list(df1.columns[1:])
 
     i = 1
@@ -172,6 +173,7 @@ def draw_4_graphs_with_overlay_for_2_df(df1: pd.DataFrame, df2: pd.DataFrame):
         plt.plot(df1['Time Moment'] , df1[col], '-', label = "Начальные данные")
         plt.plot(df2['Time Moment'] , df2[col], '-', label = "Обработанные данные")
         plt.xlabel('Time Moment')
+        plt.grid()
         plt.ylabel(col)
         plt.title(col)
         plt.legend()
