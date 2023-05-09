@@ -95,6 +95,7 @@ def reshape_X_df_to_image_like_numpy(df, crop_size, step = -1):
     print('X df reshaping to 4D')
     print('Original df size: ', df.shape)
     print('Crop windows height/width: ', crop_size)
+    print('Crop windows step across rows and cols: ', step)
 
     if step == -1:
         step = crop_size
@@ -123,7 +124,8 @@ def reshape_Y_df_to_image_like_numpy(df, crop_size, step = -1):
     print('Y df reshaping to 3D')
     print('Original df size: ', df.shape)
     print('Crop windows height/width: ', crop_size)
-
+    print('Crop windows step across rows and cols: ', step)
+    
     if step == -1:
         step = crop_size
 
@@ -143,25 +145,36 @@ def reshape_Y_df_to_image_like_numpy(df, crop_size, step = -1):
 
 # преобразовать массив кропов numpy Y выборки размера (batch,rows,cols)
 # в матрицу размера (rows,cols)
-def reshape_3D_Y_numpy_to_2D(arr, rows_count, cols_count, crop_size):
+def reshape_4D_Y_numpy_to_2D(arr, rows_count, cols_count, crop_size, step = -1):
 
     print('||||||||||||||||||')
     print('Y arr reshaping to 2D')
     print('Original arr size: ', arr.shape)
     print('Crop windows height/width: ', crop_size)
+    print('Crop windows step across rows and cols: ', step)
 
-    crops_per_rows_count = int(rows_count/crop_size) # кол-во строк / размер кропа
-    crops_per_cols_count = int(cols_count/crop_size) # кол-во столбцов / размер кропа
+    if step == -1:
+        step = crop_size
+    
+    new_map = np.zeros((rows_count, cols_count))
+    
+    arr = arr[:,:,:,0]
+    myit = iter(arr)    
+    
+    for j in range(0,  cols_count - crop_size + 1, step):
+        for i in range(0, rows_count - crop_size + 1, step):
+            temp = new_map[i:i+crop_size,j:j+crop_size]
+            temp_add = next(myit)
 
-    temp  = np.concatenate([
-                np.concatenate([arr[i + (j*crops_per_rows_count)]
-                             for i in range(crops_per_rows_count)],axis=0)
-                                 for j in range(crops_per_cols_count)],axis=1)
+            equal_mask = temp != temp_add
+            temp[equal_mask] = temp_add[equal_mask]
 
-    print('New numpy shape: ', temp.shape)
+            new_map[i:i+crop_size,j:j+crop_size] = temp        
+            
+    print('New numpy shape: ', new_map.shape)
     print('||||||||||||||||||\n')
 
-    return temp
+    return new_map
 
 # вернет бинарную 1D маску, где 1 - для кропов с дефектами
 # 0 - для кропов без дефектов
@@ -291,7 +304,7 @@ def augment_data(arr):
     print('||||||||||||\nAfter vertical full mirroring')
     print('arr shape: ', arr.shape)
 
-    arr = np.concatenate([arr,np.roll(arr,int(arr.shape[1]/2),axis=1)],axis=0)
+    '''arr = np.concatenate([arr,np.roll(arr,int(arr.shape[1]/2),axis=1)],axis=0)
 
     print('||||||||||||\nAfter vertical half shifting')
     print('arr shape: ', arr.shape)
@@ -299,7 +312,7 @@ def augment_data(arr):
     arr = np.concatenate([arr,np.roll(arr,int(arr.shape[2]/2),axis=2)],axis=0)
 
     print('||||||||||||\nAfter horizontal half shifting')
-    print('X_time_arr shape: ', arr.shape)
+    print('X_time_arr shape: ', arr.shape)'''
 
     print('||||||||||||||||||\n')
     return arr
@@ -310,7 +323,7 @@ def augment_data(arr):
 # X_time_train, X_time_val, X_time_test
 # X_amp_train, X_amp_val, X_amp_test
 # Y_train, Y_val, Y_test
-def split_data_to_train_test_val_datasets(arr, val_percent):
+def split_data_to_train_val_datasets(arr, val_percent):
     print('||||||||||||||||||')
     print('Data spliting to test, val and train datasets')
 
