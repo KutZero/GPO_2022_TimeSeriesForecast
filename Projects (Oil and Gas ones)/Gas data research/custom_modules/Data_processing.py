@@ -143,39 +143,6 @@ def reshape_Y_df_to_image_like_numpy(df, crop_size, step = -1):
 
     return Y_res
 
-# преобразовать массив кропов numpy Y выборки размера (batch,rows,cols)
-# в матрицу размера (rows,cols)
-def reshape_4D_Y_numpy_to_2D(arr, rows_count, cols_count, crop_size, step = -1):
-
-    print('||||||||||||||||||')
-    print('Y arr reshaping to 2D')
-    print('Original arr size: ', arr.shape)
-    print('Crop windows height/width: ', crop_size)
-    print('Crop windows step across rows and cols: ', step)
-
-    if step == -1:
-        step = crop_size
-    
-    new_map = np.zeros((rows_count, cols_count))
-    
-    arr = arr[:,:,:,0]
-    myit = iter(arr)    
-    
-    for j in range(0,  cols_count - crop_size + 1, step):
-        for i in range(0, rows_count - crop_size + 1, step):
-            temp = new_map[i:i+crop_size,j:j+crop_size]
-            temp_add = next(myit)
-
-            equal_mask = temp != temp_add
-            temp[equal_mask] = temp_add[equal_mask]
-
-            new_map[i:i+crop_size,j:j+crop_size] = temp        
-            
-    print('New numpy shape: ', new_map.shape)
-    print('||||||||||||||||||\n')
-
-    return new_map
-
 # вернет бинарную 1D маску, где 1 - для кропов с дефектами
 # 0 - для кропов без дефектов
 def calculate_crops_with_defects_positions(Y_arr, crop_size):
@@ -200,44 +167,33 @@ def calculate_crops_with_defects_positions(Y_arr, crop_size):
 
     return defects_nums
 
-def preprocess_data(X_time, X_amp, Y_mask, crop_size, X_time_max=0, X_amp_max=0):
-    # стндартизуем данные
-    # удалим кропы, в которых нет дефектов
-
+# нормализация значений массива
+def normalize_data(arr):
     print('||||||||||||||||||')
-    print('Data preprocessing')
+    print('Data normalizing')
+    
+    arr_max = arr.max()
+
+    print(f'arr_max before normalization: {arr_max}')
+
+    arr = arr / arr_max
+
+    print(f'arr_max after normalization: {arr.max()}')
+    print(f'arr_min after normalization: {arr.min()}')
+    print('||||||||||||||||||')
+    
+    return arr
+
+# разделить массивы кропы на содержащие дефекты и нет
+# плюс добавление бинарного массива для обучения
+# сетки бинарной классификации
+def split_def_and_non_def_data(X_time, X_amp, Y_mask, crop_size):
+    print('||||||||||||||||||')
+    print('Defect and non defect data splitting')
 
     print('Orig X_time shape: ', X_time.shape)
     print('Orig X_amp shape: ', X_amp.shape)
     print('Orig Y_mask shape: ', Y_mask.shape)
-
-
-    print('||||||||||||||||||')
-    print('Data standartization')
-
-    # стандартизуем данные
-    if ((X_time_max == 0) and (X_amp_max == 0)):
-        X_time_max = X_time.max()
-        X_amp_max = X_amp.max()
-
-    print(f'X_time_max: {X_time_max}')
-    print(f'X_amp_max: {X_amp_max}')
-    print()
-
-    X_time = X_time / X_time_max
-    X_amp = X_amp / X_amp_max
-
-    print(f'X_time_max after standartization: {X_time.max()}')
-    print(f'X_time_min after standartization: {X_time.min()}')
-    print()
-
-    print(f'X_amp_max after standartization: {X_amp.max()}')
-    print(f'X_amp_min after standartization: {X_amp.min()}')
-
-    print('||||||||||||||||||\n')
-
-    print('||||||||||||||||||')
-    print('Data with and witout defects splitting')
 
     # удалим кропы не содержищие дефекты
     defects_nums = calculate_crops_with_defects_positions(Y_mask, crop_size)
@@ -245,12 +201,10 @@ def preprocess_data(X_time, X_amp, Y_mask, crop_size, X_time_max=0, X_amp_max=0)
     X_time_def = X_time[defects_nums]
     X_amp_def = X_amp[defects_nums]
     Y_mask_def = Y_mask[defects_nums]
-    Y_binary_def = np.ones(Y_mask_def.shape[0])
 
     X_time_non_def = X_time[~defects_nums]
     X_amp_non_def = X_amp[~defects_nums]
     Y_mask_non_def = Y_mask[~defects_nums]
-    Y_binary_non_def = np.zeros(Y_mask_non_def.shape[0])
 
 
     print('X_time_def shape: ', X_time_def.shape)
@@ -265,19 +219,35 @@ def preprocess_data(X_time, X_amp, Y_mask, crop_size, X_time_max=0, X_amp_max=0)
     print('Y_mask_non_def shape: ', Y_mask_non_def.shape)
     print()
 
-    print('Y_binary_def shape: ', Y_binary_def.shape)
-    print('Y_binary_non_def shape: ', Y_binary_non_def.shape)
-
-    print('||||||||||||||||||\n')
     print('||||||||||||||||||\n')
 
     return (X_time_def,X_time_non_def),\
         (X_amp_def,X_amp_non_def),\
-        (Y_mask_def,Y_mask_non_def),\
-        (Y_binary_def,Y_binary_non_def)
+        (Y_mask_def,Y_mask_non_def)
+
+def create_binary_arr_from_mask_arr(Y_mask):
+    # создать binary_arr из binary_mask_arr
+    print('||||||||||||||||||')
+    print('Y binary arr from Y mask arr creation')
+    print('Y mask arr shape: ', Y_mask.shape)
+    # Найдем на каких картинках есть дефекты
+    Y_binary = list()
+    for i in range(Y_mask.shape[0]):
+        if np.sum(Y_mask[i] > 0) >= 1:
+            Y_binary.append(True)
+        else:
+            Y_binary.append(False)
+
+    Y_binary = np.array(Y_binary, dtype='bool')
+
+    print('Y binary arr shape: ', Y_binary.shape)
+    print('||||||||||||||||||\n')
+
+    return Y_binary
 
 # применить аугментации к данным
-# повернуть каждую картинку на 90 градусов 3 раза как пример
+# повернуть каждую картинку на 90 градусов 3 раза
+# отразить горизонтально и вертикально
 # для увеличения кол-ва данных для обучения
 def augment_data(arr):
     print('||||||||||||||||||')
